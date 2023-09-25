@@ -41,7 +41,18 @@ app.post('/createBranch', (req, res) => {
 
         else if (branchCategory==2){
                 if(branchType == '1' || branchType == '3' || branchType == '4' || branchType == '5')
-                {res.send(`Can Not Create BugFix/Hotfix/Release/Other Branches In Develop`);}
+                    {
+                        var script = exec(`bash /opt/wm/git/git-createBranchDevelop-script.sh "${branchName},${serverName}"`,
+                    (error, stdout, stderr) => {
+                        console.log(stdout);
+                        console.log(stderr);
+                        if (error !== null) {
+                            console.log(`exec error: ${error}`);
+                        }
+                        else {
+                            res.send(`Branch Created Successfully In Develop`);
+                        }
+                    }); }
                 
             }
 		else if (branchCategory == '1' && branchType != '2') {
