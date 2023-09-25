@@ -18,15 +18,17 @@ app.post('/createBranch', (req, res) => {
 	const branchCategory = req.body.branchCategory;
 	const branchType = req.body.branchType;
 	const serverName = req.body.serverName;
+
 	const {exec} = require('child_process');
 	console.log(`${branchType}`);
 	console.log(`${branchCategory}`);
 	console.log(`${serverName}`);
 	console.log(`${branchName}`);
-
 	if (regex.test(branchName)) {
-		if (branchCategory == '2'&& branchType=='2') {
-             var script = exec(`bash /opt/wm/git/git-createBranchDevelop-script.sh "${branchName},${serverName}"`,
+		if (branchCategory == 'develop')
+        {
+             if(branchType == 'bugfix/' || branchType == 'hotfix/' || branchType == 'release/' || branchType == 'other'|| branchType == 'feature/')
+             var script = exec(`C:/Users/vkraft/AppData/Local/Programs/Git/git-bash.exe C:/Users/vkraft/pubsubusingkafkaandwebmrepo/git-createBranchDevelop-script.sh "${branchName},${serverName},${branchType}",${branchCategory}`,
 				(error, stdout, stderr) => {
 					console.log(stdout);
 					console.log(stderr);
@@ -38,45 +40,32 @@ app.post('/createBranch', (req, res) => {
 					}
 				});       
 			}
-
-        else if (branchCategory==2){
-                if(branchType == '1' || branchType == '3' || branchType == '4' || branchType == '5')
-                    {
-                        var script = exec(`bash /opt/wm/git/git-createBranchDevelop-script.sh "${branchName},${serverName}"`,
-                    (error, stdout, stderr) => {
-                        console.log(stdout);
-                        console.log(stderr);
-                        if (error !== null) {
-                            console.log(`exec error: ${error}`);
-                        }
-                        else {
-                            res.send(`Branch Created Successfully In Develop`);
-                        }
-                    }); }
-                
+           else if (branchCategory == 'master')
+        {
+             if(branchType == 'bugfix/' || branchType == 'hotfix/' || branchType == 'release/' || branchType == 'other'){
+             var script = exec(`C:/Users/vkraft/AppData/Local/Programs/Git/git-bash.exe C:/Users/vkraft/pubsubusingkafkaandwebmrepo/git-createBranchDevelop-script.sh "${branchName},${serverName},${branchType}",${branchCategory}`,
+				(error, stdout, stderr) => {
+					console.log(stdout);
+					console.log(stderr);
+					if (error !== null) {
+						console.log(`exec error: ${error}`);
+                    }
+                    else {
+						res.send(`Branch Created Successfully In Master`);
+					}
+				});
             }
-		else if (branchCategory == '1' && branchType != '2') {
-				        var script = exec(`bash /opt/wm/git/git-createBranchMaster-script.sh "${branchName},${serverName}"`,
-					        (error, stdout, stderr) => {
-                                console.log(stdout);
-                                console.log(stderr);
-                                if (error !== null) {
-                                    console.log(`exec error: ${error}`);
-
-                                } else {
-                                    res.send(`Branch Created Successfully In Master`);
-                                }
-					});
-			} 
-            else if (branchCategory==1 && branchType=='2'){
-                {res.send(`Can Not Create Feature Branch In Master`);}
-                
-            } 
-		}
-        else{
-        res.send(`Branch Name Can Not Be Null Or Empty Or WhiteSpace`);
+            else{
+                res.send(`Branch Not Created`);       
+			}
         }
-
+            else{
+                res.send(`Branch Not Created`);
+            }
+                
+            }else{
+                res.send(`Branch Not Created`);
+            }
 });
 
 app.listen(port, () => {
