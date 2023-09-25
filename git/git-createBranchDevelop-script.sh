@@ -13,5 +13,6 @@ gitDirectory=$(echo "$input_string" | cut -d ',' -f 2)
 cd /opt/wm/git/"$gitDirectory"
 git switch develop
 git branch feature/"$branchName"
+git switch feature/"$branchName"
 
 
