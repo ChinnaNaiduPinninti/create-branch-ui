@@ -5,7 +5,7 @@ const {
 } = require('child_process');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = 3001;
 const regex = /^\S+$/; //regex for null or empty or white space
 
 app.use(bodyParser.urlencoded({
@@ -26,7 +26,7 @@ app.post('/createBranch', (req, res) => {
 
 	if (regex.test(branchName)) {
 		if (branchCategory == '2'&& branchType=='2') {
-             var script = exec(`C:/Users/vkraft/AppData/Local/Programs/Git/git-bash.exe C:/Users/vkraft/pubsubusingkafkaandwebmrepo/git-createBranchDevelop-script.sh "${branchName},${serverName}"`,
+             var script = exec(`bash /opt/wm/git/git-createBranchDevelop-script.sh "${branchName},${serverName}"`,
 				(error, stdout, stderr) => {
 					console.log(stdout);
 					console.log(stderr);
@@ -44,9 +44,8 @@ app.post('/createBranch', (req, res) => {
                 {res.send(`Can Not Create BugFix/Hotfix/Release/Other Branches In Develop`);}
                 
             }
-		//---------for creating feature branch in master-----
 		else if (branchCategory == '1' && branchType != '2') {
-				        var script = exec(`C:/Users/vkraft/AppData/Local/Programs/Git/git-bash.exe C:/Users/vkraft/pubsubusingkafkaandwebmrepo/git-createBranchMaster-script.sh "${branchName}"`,
+				        var script = exec(`bash /opt/wm/git/git-createBranchMaster-script.sh "${branchName},${serverName}"`,
 					        (error, stdout, stderr) => {
                                 console.log(stdout);
                                 console.log(stderr);
