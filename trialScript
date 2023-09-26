@@ -1,13 +1,33 @@
 <script>
     function action1() {
-        // Perform the first action here
-        document.getElementById("myForm").action = "action1.php";
-        document.getElementById("myForm").submit();
-    }
+        // Get the form element
+        var form = document.getElementById("myForm");
 
-    function action2() {
-        // Perform the second action here
-        document.getElementById("myForm").action = "action2.php";
-        document.getElementById("myForm").submit();
+        // Create a new FormData object from the form
+        var formData = new FormData(form);
+
+        // Create a request object
+        var request = new Request("http://example.com/api/endpoint", {
+            method: "POST",
+            body: formData
+        });
+
+        // Send the request using the fetch API
+        fetch(request)
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("API request failed");
+                }
+            })
+            .then(function (data) {
+                // Handle the API response data
+                console.log("API response:", data);
+            })
+            .catch(function (error) {
+                // Handle errors
+                console.error("API request error:", error);
+            });
     }
 </script>
