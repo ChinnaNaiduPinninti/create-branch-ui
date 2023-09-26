@@ -1,0 +1,13 @@
+<script>
+    function action1() {
+        // Perform the first action here
+        document.getElementById("myForm").action = "action1.php";
+        document.getElementById("myForm").submit();
+    }
+
+    function action2() {
+        // Perform the second action here
+        document.getElementById("myForm").action = "action2.php";
+        document.getElementById("myForm").submit();
+    }
+</script>
