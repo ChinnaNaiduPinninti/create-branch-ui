@@ -1,13 +1,14 @@
 <script>
-    function action1() {
+    function action2(){
         // Get the form element
         var form = document.getElementById("myForm");
 
         // Create a new FormData object from the form
         var formData = new FormData(form);
 
+        
         // Create a request object
-        var request = new Request("http://example.com/api/endpoint", {
+        var request = new Request("http://localhost:3000/createBranch", {
             method: "POST",
             body: formData
         });
