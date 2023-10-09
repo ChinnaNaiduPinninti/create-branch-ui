@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Input string
 input_string="$1"
 cd C:/Users/vkraft/Desktop/devOps/git/create-branch-ui/aia-server-5255
