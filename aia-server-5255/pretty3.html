@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<pre id="demo"></pre>
+
+<script>
+function preserveDecimal(jsonObj, decimalPlaces, indentation = '', indentStep = '    ') {
+  // Base case: if the given value is a number and the key is "salary", "discount", or "charges",
+  // convert it to string with desired decimal places
+  if (typeof jsonObj === 'number' && (this.key === 'salary' || this.key === 'discount' || this.key === 'charges')) {
+    return jsonObj.toFixed(decimalPlaces);
+  }
+
+  // Recursive case: if the given value is an object or array, iterate through its properties/elements
+  if (typeof jsonObj === 'object' && jsonObj !== null) {
+    if (Array.isArray(jsonObj)) {
+      // If it's an array, iterate through each element and recursively call the function
+      const arrayItems = jsonObj.map(element => preserveDecimal.call({ key: '' }, element, decimalPlaces, indentation + indentStep, indentStep));
+      return '[\n' + indentation + arrayItems.join(',\n' + indentation) + '\n' + indentation + ']';
+    } else {
+      // If it's an object, iterate through each property and recursively call the function
+      const objectProperties = Object.entries(jsonObj).map(([key, value]) => `"${key}": ${preserveDecimal.call({ key: key }, value, decimalPlaces, indentation + indentStep, indentStep)}`);
+      return '{\n' + indentation + objectProperties.join(',\n' + indentation) + '\n' + indentation + '}';
+    }
+  }
+
+  // Convert non-object values to string
+  return JSON.stringify(jsonObj);
+}
+
+// Example JSON
+const json = {
+	"result": {
+		"medicalRecordNo": "30-PRN000000043",
+		"requestDateTime": "2022-11-24T12:41:03.330Z",
+		"requestEvent": "FGL",
+		"responseDateTime": "2022-11-24T20:41:04.615Z",
+		"responseDetail": [{
+			"dischargeDetails": [{
+				"doctorName": "DR ZULKIFLI BIN MOHAMAD ZAINUDDIN",
+				"doctorMMCCode": "DR046",
+				"dischargeDate": "2022-10-31T09:55:00.000Z",
+				"undertakingReferenceNo": "7301019473",
+				"treatmentorInvestigationDetails": "002_002 - SIT - TYPHOID AND PARATYPHOID FEVERS",
+				"primaryDiagnosisCode": "002",
+				"proceduresListPrimary": [{
+					"procedureCode": "31750",
+					"procedureDescription": "Tracheoplasty"
+				}],
+				"causeandPathology": "002_002 - SIT - TYPHOID AND PARATYPHOID FEVERS",
+				"secondaryDiagnosisCode": "005",
+				"procedureListSecondary": [{
+					"secondaryProcedureCode": "49605",
+					"secondaryProcedureDescription": "Closure of exomphalos major/gastroschisis - Primary closure"
+				}],
+				"causeandPathologySecondary": null,
+				"dateofProcedures": "2022-11-24T20:41:04.000Z",
+				"correctiveDevices": false,
+				"cosmetic": false,
+				"congenital": false,
+				"eyeExamination": false,
+				"pregnancy": false,
+				"childBirth": false,
+				"contraception": false,
+				"venerealDiseases": false,
+				"intoxication": false,
+				"psychiatric": false,
+				"routineHealth": false,
+				"sexualDysfunction": false,
+				"sleepingDisorder": false,
+				"professionalSports": false,
+				"selfInflictedInjury": false,
+				"strike": false,
+				"noneoftheAbove": false,
+				"additionalDetails": null,
+				"recoveryComplications": "002_002 - SIT - TYPHOID AND PARATYPHOID FEVERS",
+				"deceasedDate": null,
+				"needFollowUp": true,
+				"nextAppointmentDate": "2022-10-31T00:00:00.000Z"
+			}],
+			"billingInformation": {
+				"totalAmount": 1568.5,
+				"totalDiscounted": 0.0,
+				"roundingAdjustment": 0,
+				"totalPayableAmount": 1568.5,
+				"patientPaidAmount": 0.0,
+				"medicalPrescription": [{
+					"rxItem": "Adderall",
+					"dosage": "250 mg",
+					"validity": "2 days"
+				}],
+				"invoiceNumber": "50043",
+				"invoiceDate": "2030-09-28T00:00:00.000Z",
+				"bills": [{
+					"headers": [{
+							"billingItemGroupCode": "06",
+							"billingItemGroupDescription": "CONSULTANT",
+							"subtotalAmount": 352.5,
+							"subtotalDiscount": 0.0,
+							"subtotalTax": 0.0,
+							"subtotalPayableAmount": 352.5,
+							"lineItems": [{
+								"billingItemCode": "06214010",
+								"billingItemDescription": "DR ZANARIAH SABIRON - CONSULTANT",
+								"doctorMMCCode": "DR046",
+								"unit": 1.0,
+								"pricePerUnit": 352.5,
+								"discount": 0.0,
+								"amount": 352.5,
+								"taxCode": "SSTOUT-0",
+								"taxAmount": 0.0,
+								"payableAmount": 352.5,
+								"billDateFrom": "2030-07-21T00:00:00.000Z",
+								"billDateTo": "2030-07-21T00:00:00.000Z"
+							}]
+						},
+						{
+							"billingItemGroupCode": "61",
+							"billingItemGroupDescription": "LABORATORY",
+							"subtotalAmount": 45.0,
+							"subtotalDiscount": 0.0,
+							"subtotalTax": 0.0,
+							"subtotalPayableAmount": 45.0,
+							"lineItems": [{
+								"billingItemCode": "61073300",
+								"billingItemDescription": "ADDITIONAL AFTER HOURS RATE",
+								"doctorMMCCode": "DR046",
+								"unit": 1.0,
+								"pricePerUnit": 45.0,
+								"discount": 0.0,
+								"amount": 45.0,
+								"taxCode": "SSTOUT-0",
+								"taxAmount": 0.0,
+								"payableAmount": 45.0,
+								"billDateFrom": "2030-07-21T00:00:00.000Z",
+								"billDateTo": "2030-07-21T00:00:00.000Z"
+							}]
+						},
+						{
+							"billingItemGroupCode": "54",
+							"billingItemGroupDescription": "MEDICAL EQUIPMENT",
+							"subtotalAmount": 47.0,
+							"subtotalDiscount": 0.0,
+							"subtotalTax": 0.0,
+							"subtotalPayableAmount": 47.0,
+							"lineItems": [{
+								"billingItemCode": "54130013",
+								"billingItemDescription": "Continuous Electronic B/P Monitor (Dinamap) (8HOURS)",
+								"doctorMMCCode": "DR046",
+								"unit": 1.0,
+								"pricePerUnit": 47.0,
+								"discount": 0.0,
+								"amount": 47.0,
+								"taxCode": "0",
+								"taxAmount": 0.0,
+								"payableAmount": 47.0,
+								"billDateFrom": "2030-07-21T00:00:00.000Z",
+								"billDateTo": "2030-07-21T00:00:00.000Z"
+							}]
+						},
+						{
+							"billingItemGroupCode": "53",
+							"billingItemGroupDescription": "NURSING PROCEDURE",
+							"subtotalAmount": 57.0,
+							"subtotalDiscount": 0.0,
+							"subtotalTax": 0.0,
+							"subtotalPayableAmount": 57.0,
+							"lineItems": [{
+								"billingItemCode": "53010042",
+								"billingItemDescription": "NURSING ASSESSMENT/ADMISSION/DISCHARGE",
+								"doctorMMCCode": "DR046",
+								"unit": 1.0,
+								"pricePerUnit": 57.0,
+								"discount": 0.0,
+								"amount": 57.0,
+								"taxCode": "SSTOUT-0",
+								"taxAmount": 0.0,
+								"payableAmount": 57.0,
+								"billDateFrom": "2030-07-21T00:00:00.000Z",
+								"billDateTo": "2030-07-21T00:00:00.000Z"
+							}]
+						},
+						{
+							"billingItemGroupCode": "51",
+							"billingItemGroupDescription": "PHARMACY",
+							"subtotalAmount": 767.0,
+							"subtotalDiscount": 0.0,
+							"subtotalTax": 0.0,
+							"subtotalPayableAmount": 767.0,
+							"lineItems": [{
+									"billingItemCode": "51200246",
+									"billingItemDescription": "SODIUM CHLORIDE 0.9% 10ML INJ",
+									"doctorMMCCode": "DR046",
+									"unit": 1.0,
+									"pricePerUnit": 700.0,
+									"discount": 0.0,
+									"amount": 700.0,
+									"taxCode": "0",
+									"taxAmount": 0.0,
+									"payableAmount": 700.0,
+									"billDateFrom": "2030-07-21T00:00:00.000Z",
+									"billDateTo": "2030-07-21T00:00:00.000Z"
+								},
+								{
+									"billingItemCode": "51400701",
+									"billingItemDescription": "PICO-SALAX 10MG SACHET 1'S",
+									"doctorMMCCode": "DR046",
+									"unit": 2.0,
+									"pricePerUnit": 33.5,
+									"discount": 0.0,
+									"amount": 67.0,
+									"taxCode": "SSTOUT-0",
+									"taxAmount": 0.0,
+									"payableAmount": 67.0,
+									"billDateFrom": "2030-07-21T00:00:00.000Z",
+									"billDateTo": "2030-07-21T00:00:00.000Z"
+								}
+							]
+						},
+						{
+							"billingItemGroupCode": "52",
+							"billingItemGroupDescription": "SURGICAL / MEDICAL SUPPLIES",
+							"subtotalAmount": 300.0,
+							"subtotalDiscount": 0.0,
+							"subtotalTax": 0.0,
+							"subtotalPayableAmount": 300.0,
+							"lineItems": [{
+								"billingItemCode": "52420234",
+								"billingItemDescription": "VASOFIX SAFETY G20 X 33MM (426",
+								"doctorMMCCode": "DR046",
+								"unit": 1.0,
+								"pricePerUnit": 300.0,
+								"discount": 0.0,
+								"amount": 300.0,
+								"taxCode": "0",
+								"taxAmount": 0.0,
+								"payableAmount": 300.0,
+								"billDateFrom": "2022-07-27T00:00:00.000Z",
+								"billDateTo": "2022-07-27T00:00:00.000Z"
+							}]
+						}
+					]
+				}]
+			}
+		}],
+		"errorDetailList": null
+	}
+};
+
+const decimalPreservedJson = preserveDecimal(json, 2, '', '    ');
+document.getElementById("demo").textContent = decimalPreservedJson;
+</script>
+
+</body>
+</html>
