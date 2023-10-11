@@ -2,12 +2,12 @@
 
 # Input string
 input_string="$1"
-cd C:/Users/vkraft/Desktop/devOps/git/create-branch-ui/aia-server-5255
-
 # Use 'cut' to split the string by ',' and assign to variables
 branchName=$(echo "$input_string" | cut -d ',' -f 1)
 
 message=$(echo "$input_string" | cut -d ',' -f 2)
+serverName=$(echo "$input_string" | cut -d ',' -f 3)
+cd C:/Users/vkraft/Desktop/devOps/git/create-branch-ui/$serverName
 
 git switch $branchName
 

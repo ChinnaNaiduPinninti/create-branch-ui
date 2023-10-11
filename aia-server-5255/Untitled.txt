@@ -1,0 +1,19 @@
+
+  <div class="login-box">
+ <form id='myForm' action="stats1.dsp" methods="post">
+ %invoke Ui_Practise.v1.services:getStringLength%
+      <div class="user-box">
+              <input type="text" id="input" name="input" required>  
+        <label>INPUT</label>
+      </div>
+       <button class="button" onclick="show();" >Submit</button>
+       <button class="button" >Submit</button>
+%endinvoke% 
+    </form>
+  </div>
+
+<script>
+  function show(){
+document.getElementById('input').value="";
+}
+</script>
